@@ -1,0 +1,256 @@
+<html>
+<head>
+<title>Computer Vision Project</title>
+<link href='http://fonts.googleapis.com/css?family=Nunito:300|Crimson+Text|Droid+Sans+Mono' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" title="Default" href="styles/github.css">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+
+<link rel="stylesheet" href="highlighting/styles/default.css">
+<script src="highlighting/highlight.pack.js"></script>
+
+<style type="text/css">
+body {
+	margin: 0px;
+	width: 100%;
+	font-family: 'Crimson Text', serif;
+	font-size: 20px;
+	background: #fcfcfc;
+}
+h1 {
+	font-family: 'Nunito', sans-serif;
+	font-weight: normal;
+	font-size: 28px;
+	margin: 25px 0px 0px 0px;
+	text-transform: lowercase;
+
+}
+
+h2 {
+	font-family: 'Nunito', sans-serif;
+	font-weight: normal;
+	font-size: 32px;
+	margin: 15px 0px 35px 0px;
+	color: #333;
+	word-spacing: 3px;
+}
+
+h3 {
+	font-family: 'Nunito', sans-serif;
+	font-weight: normal;
+	font-size: 26px;
+	margin: 10px 0px 10px 0px;
+	color: #333;
+	word-spacing: 2px;
+}
+h4 {
+	font-family: 'Nunito', sans-serif;
+	font-weight: normal;
+	font-size: 22px;
+	margin: 10px 0px 10px 0px;
+	color: #333;
+	word-spacing: 2px;
+}
+
+h5 {
+	font-family: 'Nunito', sans-serif;
+	font-weight: normal;
+	font-size: 18px;
+	margin: 10px 0px 10px 0px;
+	color: #111;
+	word-spacing: 2px;
+}
+
+p, li {
+	color: #444;
+}
+
+a {
+	color: #DE3737;
+}
+
+.container {
+	margin: 0px auto 0px auto;
+	width: 1160px;
+}
+
+#header {
+	background: #333;
+	width: 100%;
+}
+
+#headersub {
+	color: #ccc;
+	width: 960px;
+	margin: 0px auto 0px auto;
+	padding: 20px 0px 20px 0px;
+}
+
+.chart {
+	width: 480px;
+}
+.lol {
+	font-size: 16px;
+	color: #888;
+	font-style: italic;
+}
+.sep {
+	height: 1px;
+	width: 100%;
+	background: #999;
+	margin: 20px 0px 20px 0px;
+}
+.footer{
+	font-size: 16px;
+}
+.latex {
+	width: 100%;
+}
+
+.latex img {
+	display: block;
+	margin: 0px auto 0px auto;
+}
+
+pre {
+	font-family: 'Droid Sans Mono';
+	font-size: 14px;
+}
+
+table td {
+  text-align: center;
+  vertical-align: middle;
+}
+
+table td img {
+  text-align: center;
+  vertical-align: middle;
+}
+
+#contents a {
+}
+</style>
+<script type="text/javascript">
+    hljs.initHighlightingOnLoad();
+</script>
+</head>
+<body>
+<div id="header" >
+<div id="headersub">
+<h1>Soo Hyung Park</h1>
+</div>
+</div>
+<div class="container">
+
+<h2> Project 6: Deep Learning </h2>
+
+
+<img src="https://www.mdpi.com/remotesensing/remotesensing-09-00848/article_deploy/html/images/remotesensing-09-00848-g001.png" height=400/>
+<p style="font-size: 14px">Pre-Trained AlexNet with last classifier layer added in. <a href="https://doi.org/10.3390/rs9080848">(Han, Zhong, Cao, & Zhang, 2017)</a></p>
+
+
+<p> The purpose of this assignment was to explore how Deep Networks can be used scene recognition. The tool used here was PyTorch.</p>
+
+<ol>
+<li><a href="#L0">Part 0: Deep Learning & concepts behind it.</a></li>
+<li><a href="#L1">Part 1: Simple Net.</a></li>
+<li><a href="#L2">Part 2: Classification with Pre-Trained AlexNet.</a></li>
+<li><a href="#L3">Part 3: Extra Credit - Humans Sketch Objects.</a></li>
+</ol>
+
+<h2 id='L0'>Part 0: Deep Learning & concepts behind it.</h2>
+
+<h3>0.1: Deep Learning</h3>
+
+<p>Deep Leaning is a field of Machine Learning concerned with different, complex structures of neural networks. The general form of Deep Learning model features a cascade of layers of non-linear processing units (Like ReLU) for feature extraction and transformation. Each layers represent different levels of abstraction. The models can be used for supervised classification learning, or unsupervised pattern analysis /learning.</p>
+<p>In this project, we will be focusing on the supervised Convolutional Neural Network structures to classify 15-scenes dataset.</p>
+
+<h3>0.2: Why it is a 'black box': the importance of learned parameters</h3>
+
+<p>In Neural Networks, the weights of the path from one Neuron/Perceptron Node from another are adjusted by the backpropagation process. First, the loss from the expected output and the current output from a layer is calculated, then the gradient (the derivative of the squared error function) based on that loss is calculated in order to adjust the weights of that layer. The chain rule for derivatives makes it possible to calculate gradients for each layer.</p>
+<!-- <div style="float: left; padding: 20px"> -->
+<img src="https://www.researchgate.net/profile/Ensar_Mekic/publication/266951890/figure/fig1/AS:295557034725376@1447477696245/Feed-forward-back-propagation-network-architecture.png" height=400/>
+<p style="font-size: 14px">The diagram of feed forward of information and backpropagation.<a href="https://www.researchgate.net/publication/266951890_Application_of_Ann_in_Australian_Credit_Card_Approval">(Mekic, 2014)</a></p>
+<!-- </div> -->
+<p>Because weights calculated while training rather than being pre-defined, these are usually called 'learned parameters'. As long as momentum, learning rate, and weight decays are set well, as well as the general structure of the network, other features of the model do not need to be engineered in order to get well-performing models.</p>
+
+<h3>0.3: Results of Vanilla Network Structure.</h3>
+
+<img src="img/architecture/part0_structure.png" width=600/>
+<p style="font-size: 14px">The structure of the unmodified Convolutional Network.</p>
+
+<p>In the beginning, we were given a model with a feature network that only consisted of one convolutional layer, one max-pooling layer, and one rectified linear (ReLU) layer. The last layer, which is a part of the classifier component, is a dense, fully connected convolutional layer. It seems that I can get up to 36.348% accuracy after 100 epochs, perhaps due to the structure being too simple. The fact that testing loss only went up as we had more epochs mean that the model was probably learning things wrong.</p>
+
+<img src="img/graphs/part_0.png" width=600/>
+<p style="font-size: 14px">The performance for part 0.</p>
+
+<p>Thus, in part 1, I will try to jitter the images, normalize features, and make the structure more complex to get better accuracy.</p>
+
+<h2 id="L1">Part 1: SimpleNet (Run on GPU)</h2>
+<h3>1.1: Jittering of images</h3>
+
+<p>The one jittering I did was randomly flipping the image horizontally by 50% chance. The reason for this is to mix up left-right orientation enough so if the photos were mostly taken from one side, the model would not only consider those photos that are taken at that position for classification.</p>
+
+<h3>1.2: Input/Output Normalization</h3>
+
+<p>For both input and output, I normalized each set based on their respective mean and standard deviation. First, it would subtract each image by its mean, then divide that subtraction by the standard deviation.</p>
+
+
+<h3>1.3: SimpleNet modification</h3>
+
+
+<div>
+<svg xmlns="http://www.w3.org/2000/svg" width="1073" height="300" style="cursor: move;"><g transform="translate(34.20891040504989,-190.60417051655543) scale(0.8021811663524879)"><rect class="rect" id="0_0" width="64" height="64" x="-4.5" y="375.5" style="fill: rgb(160, 160, 160); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="1_0" width="56" height="56" x="99.5" y="303.5" style="fill: rgb(160, 160, 160); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="1_1" width="56" height="56" x="107.5" y="311.5" style="fill: rgb(224, 224, 224); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="1_2" width="56" height="56" x="115.5" y="319.5" style="fill: rgb(160, 160, 160); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="1_3" width="56" height="56" x="123.5" y="327.5" style="fill: rgb(224, 224, 224); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="1_4" width="56" height="56" x="131.5" y="335.5" style="fill: rgb(160, 160, 160); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="1_5" width="56" height="56" x="139.5" y="343.5" style="fill: rgb(224, 224, 224); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="1_6" width="56" height="56" x="147.5" y="351.5" style="fill: rgb(160, 160, 160); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="1_7" width="56" height="56" x="155.5" y="359.5" style="fill: rgb(224, 224, 224); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="1_8" width="56" height="56" x="163.5" y="367.5" style="fill: rgb(160, 160, 160); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="1_9" width="56" height="56" x="171.5" y="375.5" style="fill: rgb(224, 224, 224); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="1_10" width="56" height="56" x="179.5" y="383.5" style="fill: rgb(160, 160, 160); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="1_11" width="56" height="56" x="187.5" y="391.5" style="fill: rgb(224, 224, 224); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="1_12" width="56" height="56" x="195.5" y="399.5" style="fill: rgb(160, 160, 160); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="1_13" width="56" height="56" x="203.5" y="407.5" style="fill: rgb(224, 224, 224); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="1_14" width="56" height="56" x="211.5" y="415.5" style="fill: rgb(160, 160, 160); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="1_15" width="56" height="56" x="219.5" y="423.5" style="fill: rgb(224, 224, 224); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="1_16" width="56" height="56" x="227.5" y="431.5" style="fill: rgb(160, 160, 160); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="1_17" width="56" height="56" x="235.5" y="439.5" style="fill: rgb(224, 224, 224); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="1_18" width="56" height="56" x="243.5" y="447.5" style="fill: rgb(160, 160, 160); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="1_19" width="56" height="56" x="251.5" y="455.5" style="fill: rgb(224, 224, 224); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="2_0" width="27" height="27" x="317.5" y="318" style="fill: rgb(160, 160, 160); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="2_1" width="27" height="27" x="325.5" y="326" style="fill: rgb(224, 224, 224); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="2_2" width="27" height="27" x="333.5" y="334" style="fill: rgb(160, 160, 160); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="2_3" width="27" height="27" x="341.5" y="342" style="fill: rgb(224, 224, 224); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="2_4" width="27" height="27" x="349.5" y="350" style="fill: rgb(160, 160, 160); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="2_5" width="27" height="27" x="357.5" y="358" style="fill: rgb(224, 224, 224); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="2_6" width="27" height="27" x="365.5" y="366" style="fill: rgb(160, 160, 160); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="2_7" width="27" height="27" x="373.5" y="374" style="fill: rgb(224, 224, 224); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="2_8" width="27" height="27" x="381.5" y="382" style="fill: rgb(160, 160, 160); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="2_9" width="27" height="27" x="389.5" y="390" style="fill: rgb(224, 224, 224); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="2_10" width="27" height="27" x="397.5" y="398" style="fill: rgb(160, 160, 160); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="2_11" width="27" height="27" x="405.5" y="406" style="fill: rgb(224, 224, 224); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="2_12" width="27" height="27" x="413.5" y="414" style="fill: rgb(160, 160, 160); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="2_13" width="27" height="27" x="421.5" y="422" style="fill: rgb(224, 224, 224); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="2_14" width="27" height="27" x="429.5" y="430" style="fill: rgb(160, 160, 160); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="2_15" width="27" height="27" x="437.5" y="438" style="fill: rgb(224, 224, 224); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="2_16" width="27" height="27" x="445.5" y="446" style="fill: rgb(160, 160, 160); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="2_17" width="27" height="27" x="453.5" y="454" style="fill: rgb(224, 224, 224); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="2_18" width="27" height="27" x="461.5" y="462" style="fill: rgb(160, 160, 160); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="2_19" width="27" height="27" x="469.5" y="470" style="fill: rgb(224, 224, 224); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="3_0" width="23" height="23" x="476.5" y="340" style="fill: rgb(160, 160, 160); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="3_1" width="23" height="23" x="484.5" y="348" style="fill: rgb(224, 224, 224); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="3_2" width="23" height="23" x="492.5" y="356" style="fill: rgb(160, 160, 160); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="3_3" width="23" height="23" x="500.5" y="364" style="fill: rgb(224, 224, 224); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="3_4" width="23" height="23" x="508.5" y="372" style="fill: rgb(160, 160, 160); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="3_5" width="23" height="23" x="516.5" y="380" style="fill: rgb(224, 224, 224); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="3_6" width="23" height="23" x="524.5" y="388" style="fill: rgb(160, 160, 160); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="3_7" width="23" height="23" x="532.5" y="396" style="fill: rgb(224, 224, 224); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="3_8" width="23" height="23" x="540.5" y="404" style="fill: rgb(160, 160, 160); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="3_9" width="23" height="23" x="548.5" y="412" style="fill: rgb(224, 224, 224); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="3_10" width="23" height="23" x="556.5" y="420" style="fill: rgb(160, 160, 160); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="3_11" width="23" height="23" x="564.5" y="428" style="fill: rgb(224, 224, 224); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="3_12" width="23" height="23" x="572.5" y="436" style="fill: rgb(160, 160, 160); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="3_13" width="23" height="23" x="580.5" y="444" style="fill: rgb(224, 224, 224); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="3_14" width="23" height="23" x="588.5" y="452" style="fill: rgb(160, 160, 160); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="4_0" width="11" height="11" x="591.5" y="346" style="fill: rgb(160, 160, 160); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="4_1" width="11" height="11" x="599.5" y="354" style="fill: rgb(224, 224, 224); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="4_2" width="11" height="11" x="607.5" y="362" style="fill: rgb(160, 160, 160); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="4_3" width="11" height="11" x="615.5" y="370" style="fill: rgb(224, 224, 224); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="4_4" width="11" height="11" x="623.5" y="378" style="fill: rgb(160, 160, 160); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="4_5" width="11" height="11" x="631.5" y="386" style="fill: rgb(224, 224, 224); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="4_6" width="11" height="11" x="639.5" y="394" style="fill: rgb(160, 160, 160); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="4_7" width="11" height="11" x="647.5" y="402" style="fill: rgb(224, 224, 224); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="4_8" width="11" height="11" x="655.5" y="410" style="fill: rgb(160, 160, 160); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="4_9" width="11" height="11" x="663.5" y="418" style="fill: rgb(224, 224, 224); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="4_10" width="11" height="11" x="671.5" y="426" style="fill: rgb(160, 160, 160); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="4_11" width="11" height="11" x="679.5" y="434" style="fill: rgb(224, 224, 224); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="4_12" width="11" height="11" x="687.5" y="442" style="fill: rgb(160, 160, 160); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="4_13" width="11" height="11" x="695.5" y="450" style="fill: rgb(224, 224, 224); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="4_14" width="11" height="11" x="703.5" y="458" style="fill: rgb(160, 160, 160); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="5_0" width="8" height="8" x="814.5" y="367.5" style="fill: rgb(160, 160, 160); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="5_1" width="8" height="8" x="822.5" y="375.5" style="fill: rgb(224, 224, 224); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="5_2" width="8" height="8" x="830.5" y="383.5" style="fill: rgb(160, 160, 160); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="5_3" width="8" height="8" x="838.5" y="391.5" style="fill: rgb(224, 224, 224); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="5_4" width="8" height="8" x="846.5" y="399.5" style="fill: rgb(160, 160, 160); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="5_5" width="8" height="8" x="854.5" y="407.5" style="fill: rgb(224, 224, 224); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="5_6" width="8" height="8" x="862.5" y="415.5" style="fill: rgb(160, 160, 160); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="5_7" width="8" height="8" x="870.5" y="423.5" style="fill: rgb(224, 224, 224); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="5_8" width="8" height="8" x="878.5" y="431.5" style="fill: rgb(160, 160, 160); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="rect" id="5_9" width="8" height="8" x="886.5" y="439.5" style="fill: rgb(224, 224, 224); stroke: black; stroke-width: 1; opacity: 0.8;"></rect><rect class="conv" id="conv_0" width="9" height="9" x="23.0972404498215" y="422.69587334384664" style="fill-opacity: 0; stroke: black; stroke-width: 1; stroke-opacity: 0.8;"></rect><rect class="conv" id="conv_1" width="3" height="3" x="288.0198870257791" y="493.9640358454362" style="fill-opacity: 0; stroke: black; stroke-width: 1; stroke-opacity: 0.8;"></rect><rect class="conv" id="conv_2" width="5" height="5" x="476.4212841423824" y="473.66763436726535" style="fill-opacity: 0; stroke: black; stroke-width: 1; stroke-opacity: 0.8;"></rect><rect class="conv" id="conv_3" width="3" height="3" x="591.4308360590304" y="463.81113806934485" style="fill-opacity: 0; stroke: black; stroke-width: 1; stroke-opacity: 0.8;"></rect><rect class="conv" id="conv_4" width="4" height="4" x="709.1068944699568" y="463.5127394102012" style="fill-opacity: 0; stroke: black; stroke-width: 1; stroke-opacity: 0.8;"></rect><line class="link" id="conv_0" x1="32.0972404498215" y1="431.69587334384664" x2="279.59900845800007" y2="503.5539801319166" style="stroke: black; stroke-width: 0.5; stroke-opacity: 0.8;"></line><line class="link" id="conv_0" x1="32.0972404498215" y1="422.69587334384664" x2="279.59900845800007" y2="503.5539801319166" style="stroke: black; stroke-width: 0.5; stroke-opacity: 0.8;"></line><line class="link" id="conv_1" x1="291.0198870257791" y1="496.9640358454362" x2="488.1044707489818" y2="489.59488618541087" style="stroke: black; stroke-width: 0.5; stroke-opacity: 0.8;"></line><line class="link" id="conv_1" x1="291.0198870257791" y1="493.9640358454362" x2="488.1044707489818" y2="489.59488618541087" style="stroke: black; stroke-width: 0.5; stroke-opacity: 0.8;"></line><line class="link" id="conv_2" x1="481.4212841423824" y1="478.66763436726535" x2="595.7358879670361" y2="455.83434502032287" style="stroke: black; stroke-width: 0.5; stroke-opacity: 0.8;"></line><line class="link" id="conv_2" x1="481.4212841423824" y1="473.66763436726535" x2="595.7358879670361" y2="455.83434502032287" style="stroke: black; stroke-width: 0.5; stroke-opacity: 0.8;"></line><line class="link" id="conv_3" x1="594.4308360590304" y1="466.81113806934485" x2="705.1119598324667" y2="464.4961259381397" style="stroke: black; stroke-width: 0.5; stroke-opacity: 0.8;"></line><line class="link" id="conv_3" x1="594.4308360590304" y1="463.81113806934485" x2="705.1119598324667" y2="464.4961259381397" style="stroke: black; stroke-width: 0.5; stroke-opacity: 0.8;"></line><line class="link" id="conv_4" x1="713.1068944699568" y1="467.5127394102012" x2="892.9078793942364" y2="445.80027361165855" style="stroke: black; stroke-width: 0.5; stroke-opacity: 0.8;"></line><line class="link" id="conv_4" x1="713.1068944699568" y1="463.5127394102012" x2="892.9078793942364" y2="445.80027361165855" style="stroke: black; stroke-width: 0.5; stroke-opacity: 0.8;"></line><polygon class="poly" id="fc_0" points="906.5,402.1966991411009 916.5,402.1966991411009 927.1066017177982,412.8033008588991 917.1066017177982,412.8033008588991" style="fill: rgb(224, 224, 224); stroke: black; stroke-width: 1; opacity: 0.8;"></polygon><line class="line" id="fc_0" x1="894.5" y1="447.5" x2="917.1066017177982" y2="412.8033008588991" style="stroke: black; stroke-width: 0.5; stroke-opacity: 0.8;"></line><line class="line" id="fc_0" x1="822.5" y1="367.5" x2="906.5" y2="402.1966991411009" style="stroke: black; stroke-width: 0.5; stroke-opacity: 0.8;"></line><text class="text" dy=".35em" font-family="sans-serif" x="116.5" y="583.5" style="font-size: 16px;">Convolution</text><text class="text" dy=".35em" font-family="sans-serif" x="342.25" y="583.5" style="font-size: 16px;">Max-Pool</text><text class="text" dy=".35em" font-family="sans-serif" x="505.25" y="583.5" style="font-size: 16px;">Convolution</text><text class="text" dy=".35em" font-family="sans-serif" x="617.25" y="583.5" style="font-size: 16px;">Max-Pool</text><text class="text" dy=".35em" font-family="sans-serif" x="769.5" y="583.5" style="font-size: 16px;">Convolution</text><text class="text" dy=".35em" font-family="sans-serif" x="888.1516504294495" y="583.5" style="font-size: 16px;">Convolution(Dense)</text><text class="info" dy="-0.3em" font-family="sans-serif" x="-4.5" y="360.5" style="font-size: 16px;">1@64x64</text><text class="info" dy="-0.3em" font-family="sans-serif" x="99.5" y="288.5" style="font-size: 16px;">20@56x56</text><text class="info" dy="-0.3em" font-family="sans-serif" x="317.5" y="303" style="font-size: 16px;">20@27x27</text><text class="info" dy="-0.3em" font-family="sans-serif" x="476.5" y="325" style="font-size: 16px;">15@23x23</text><text class="info" dy="-0.3em" font-family="sans-serif" x="591.5" y="331" style="font-size: 16px;">15@11x11</text><text class="info" dy="-0.3em" font-family="sans-serif" x="814.5" y="352.5" style="font-size: 16px;">10@8x8</text><text class="info" dy="-0.3em" font-family="sans-serif" x="906.5" y="387.1966991411009" style="font-size: 16px;">1x15</text></g></svg>
+<p style="font-size: 16px">Graphical Visualization of SimpleNet I have created.</p>
+</div>
+
+<p>In order to improve my accuracy above 50%, I added more Convolutional, Max-Pool, and ReLU layers. Note that I add Conv2d, MaxPool2d, and ReLU 3 times, except I do not put the MaxPool between the last Conv2d-ReLU layer series (it is because the dimension fo the network got too small at that point). Also, the last ReLU layer I tried was LeakyReLU, because I thought it would solve 'zero dying' problem, where gradients to update weights for ReLU layer stays zero because of the slope of 0 if the neuron node is not activated. There was some improvement in the accuracy performance around ~1%.</p>
+
+<img src="img/architecture/part1_structure.png" width=600/>
+<p style="font-size: 14px">The structure of the modified Convolutional Network.</p>
+<p>
+	Also, in order to stabilize the neural networks, I added Batch Normalization after each ReLU/LeakyReLU unit. For each Batch Normalization layer, I set the weight to be in a normal distribution with mean=0 and std.dev=1.
+</p>
+<p>
+	At the end of features layers (right before the classifier convolution layer, which is the last layer of this network), I added a dropout layer in order to reduce overfitting in the network by dropping random weights. This prevents the network from learning wrong things from training data that does not necessarily apply to the testing data.
+</p>
+<img src="img/graphs/part_1.png" width=600/>
+<p style="font-size: 14px">The performance for part 1.</p>
+<p>Unlike as in part 0, the testing loss now goes down throughout, showing improvement. Also, I now get the accuracy of 55.343%.</p>
+
+<h2 id="L2">Part 2: Classification with Pre-Trained AlexNet.</h2>
+
+<div style="float: right; padding: 20px">
+<img src="https://www.mdpi.com/remotesensing/remotesensing-09-00848/article_deploy/html/images/remotesensing-09-00848-g001.png" height=400/>
+<p style="font-size: 14px">Pre-Trained AlexNet with last classifier layer added in. <a href="https://doi.org/10.3390/rs9080848">(Han, Zhong, Cao, & Zhang, 2017)</a></p>
+</div>
+
+<p>The benefits of fine-tuning with a pre-trained network is that the pre-trained network already contains enough learned features that could also work for other problems. This is called transfer learning. In this case, we are trying to transfer the "knowledge" gained from original AlexNet problem to the 15-scenes problem.</p>
+
+<img src="img/architecture/part2_structure.png" width=600/>
+<p style="font-size: 14px">The structure of the modified Convolutional Network.</p>
+<p>
+	First, I added a linear layer to reduce dimensionality from 4096 to 128.
+</p>
+<p>
+	The I added a non-linearlity layer in the form of ReLU layer to allow more room for more abstract learning beyond linear relationship.
+</p>
+<p>Then, I finally added the last linear layer to reduce size to a vector of 15.</p>
+<img src="img/graphs/part_2.png" width=600/>
+<p style="font-size: 14px">The performance for part 2.</p>
+<p>Using pre-trained AlexNet took less epochs: only the last added layers (two dimension-reduction linear layers and one ReLU layer) had to be adjusted mostly to get the desired result. The accuracy I got was 85.695%</p>
+
+<h2 id="L3">Part 3: Extra Credit - Humans Sketch Objects.</h2>
+
+
+<p>I also attempted doing some classification problems with <a href="http://cybertron.cg.tu-berlin.de/eitz/projects/classifysketch/"> Human Sketch data</a>.</p>
+<p>This data has 250 classes total. To train, I randomly selected 40 from the 80 images for each, and split into train and test datasets. The following is the splitted dataset: <a href="https://drive.google.com/file/d/1BGuJEFIsaaMsr_JmDik0HnnHVlgWbpnX/view?usp=sharing">LINK</a></p>
+<p>First, I created a new neural network structure by modifying the SimpleNet called SketchNet, which has more channels than SimpleNet architecture. The following is the architecture of it.</p>
+<img src="img/architecture/part_3.png" height=400/>
+<p>And the performance I got. The best testing accuracy was 47.490%.</p>
+<img src="img/graphs/part_3.png" height=400/>
+<p>I also attempted to use pre-trained AlexNet to classify. However, it did even poorly at 31.64% of classification accuracy.</p>
+<img src="img/architecture/part_4.png" height=400/>
+<img src="img/graphs/part_4.png" height=400/>
+<p>TThus, the conclusion made from this experiment is that: classifying the sketch data is not really a similar task to scene recognition. Also, note that SketchNet, which was a slight modification of SimpleNet, still did better than AlexNet. That probably indicates AlexNet is too deep for this task. Unless we can use ResNet or other techniques for this task, it would be hard to classify this dataset adequately.</p>
+</body>
+</html>
