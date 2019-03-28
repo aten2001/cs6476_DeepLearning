@@ -1,5 +1,7 @@
 # CS 6476 project 6: [Deep Learning](https://www.cc.gatech.edu/~hays/compvision/proj6/)
 
+# My report
+- [LINK](http://htmlpreview.github.com/?https://github.com/shstan/cs6476_DeepLearning/blob/master/html/index.html)
 # Setup
 - Install [Miniconda](https://conda.io/miniconda). It doesn't matter whether you use 2.7 or 3.6 because we will create our own environment anyways.
 - Create a conda environment, using the appropriate command. On Windows, open the installed "Conda prompt" to run this command. On MacOS and Linux, you can just use a terminal window to run the command. Modify the command based on your OS ('linux', 'mac', or 'win'): `conda env create -f environment_<OS>.yml`
