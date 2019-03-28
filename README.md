@@ -19,3 +19,7 @@
 - I only used GPU for this task, else it would take a long time.
 - The dataset I modified to use: https://drive.google.com/file/d/1BGuJEFIsaaMsr_JmDik0HnnHVlgWbpnX/view?usp=sharing
 - ignore code/split_sketch.py: I used it to split dataset, but have to comment and comment some lines to do so each run.
+
+
+# Credits for starter codes
+- Project description and code by James Hays. Modified by Samarth Brahmbhatt, Jianan Gao and Dilara Soylu for Fall 2018.
